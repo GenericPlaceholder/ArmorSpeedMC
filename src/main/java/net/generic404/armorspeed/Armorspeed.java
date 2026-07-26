@@ -2,6 +2,7 @@ package net.generic404.armorspeed;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
@@ -29,12 +30,19 @@ public class Armorspeed implements ModInitializer {
 		ServerTickEvents.END_SERVER_TICK.register((server) -> applySlowness(server, ItemTags.WEIGHTLESS));
 	}
 
-	public static int getArmorValue(LivingEntity entity, TagKey<Item> WEIGHTLESS) {
-		int out = 0;
+	public static double getArmorValue(LivingEntity entity, TagKey<Item> WEIGHTLESS) {
+		double out = 0;
 
 		for (var stack : entity.getArmorAndBodyArmorSlots()) {
-			if (stack.getItem() instanceof ArmorItem item && !stack.is(WEIGHTLESS)) {
-				out += item.getDefense();
+			if (stack.getItem() instanceof ArmorItem && !stack.is(WEIGHTLESS)) {
+				var modifiers = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
+				if (modifiers != null) {
+					for (var modifier : modifiers.modifiers()) {
+						if (modifier.attribute().equals(Attributes.ARMOR)) {
+							out += modifier.modifier().amount();
+						}
+					}
+				}
 			}
 		}
 
