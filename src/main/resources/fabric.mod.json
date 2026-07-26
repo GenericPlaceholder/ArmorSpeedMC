@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "armorspeed",
+  "version": "${version}",
+  "name": "Armor Speed",
+  "description": "A simple mod that changes your speed based on how much armor you're wearing.",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/armorspeed/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "net.generic404.armorspeed.Armorspeed"
+    ]
+  },
+  "mixins": [
+    "armorspeed.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
