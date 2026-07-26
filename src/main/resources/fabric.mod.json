@@ -7,8 +7,8 @@
   "authors": [],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/armorspeed/icon.png",
-  "environment": "server",
+  "icon": "icon.png",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "net.generic404.armorspeed.Armorspeed"
