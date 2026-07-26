@@ -3,7 +3,7 @@ package net.generic404.armorspeed;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -25,8 +25,6 @@ public class Armorspeed implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ItemTags.init();
-
 		ServerTickEvents.END_SERVER_TICK.register((server) -> applySlowness(server, ItemTags.WEIGHTLESS));
 	}
 
@@ -61,7 +59,7 @@ public class Armorspeed implements ModInitializer {
 
 	public static AttributeModifier getArmorSpeedModifier(LivingEntity entity, TagKey<Item> WEIGHTLESS) {
 		return new AttributeModifier(
-				ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID,"speedmodifier"),
+				Identifier.fromNamespaceAndPath(Constants.MOD_ID,"speedmodifier"),
 				(
 						(
 								(getArmorValue(entity,WEIGHTLESS)*DEBUFF_AMOUNT) // base armor debuff
