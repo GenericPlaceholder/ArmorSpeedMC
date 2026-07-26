@@ -6,10 +6,10 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ShieldItem;
 
@@ -33,13 +33,17 @@ public class Armorspeed implements ModInitializer {
 	public static double getArmorValue(LivingEntity entity, TagKey<Item> WEIGHTLESS) {
 		double out = 0;
 
-		for (var stack : entity.getArmorAndBodyArmorSlots()) {
-			if (stack.getItem() instanceof ArmorItem && !stack.is(WEIGHTLESS)) {
-				var modifiers = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
-				if (modifiers != null) {
-					for (var modifier : modifiers.modifiers()) {
-						if (modifier.attribute().equals(Attributes.ARMOR)) {
-							out += modifier.modifier().amount();
+		for (var slot : EquipmentSlotGroup.ARMOR.slots()) {
+			if (entity.hasItemInSlot(slot)) {
+				var stack = entity.getItemBySlot(slot);
+
+				if (!stack.is(WEIGHTLESS)) {
+					var modifiers = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
+					if (modifiers != null) {
+						for (var modifier : modifiers.modifiers()) {
+							if (modifier.attribute().equals(Attributes.ARMOR)) {
+								out += modifier.modifier().amount();
+							}
 						}
 					}
 				}
