@@ -2,7 +2,6 @@ package net.generic404.armorspeed;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.File;
@@ -341,6 +340,7 @@ public class Config {
 			CONFIG = CONFIG_DEFAULT;
 		}
 
+		ServerLifecycleEvents.SERVER_STARTED.register(Config::reloadConfigSafe);
 		ServerLifecycleEvents.START_DATA_PACK_RELOAD.register((server, t) -> Config.reloadConfigSafe(server));
 	}
 }
