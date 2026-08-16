@@ -324,11 +324,9 @@ public class Config {
 		}
 
 		// Reload the config and log if any entries are invalid.
-		var err = Config.reloadConfig(configNew,CONFIG);
+		var err = Config.reloadConfig(configNew,CONFIG_DEFAULT);
 		if (err != null) {
-			var msg = "Found invalid entries in config. Entries: " + Arrays.toString(err);
-			Armorspeed.LOGGER.warn(msg);
-			server.sendSystemMessage(Component.literal("[Armorspeed] ").append(msg));
+			Armorspeed.LOGGER.warn("Found invalid entries in config. Entries: {}", Arrays.toString(err));
 		} else {
 			Armorspeed.LOGGER.info("Reloaded config.");
 		}
