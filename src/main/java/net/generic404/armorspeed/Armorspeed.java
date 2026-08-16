@@ -12,8 +12,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ShieldItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Armorspeed implements ModInitializer {
+	public static final Logger LOGGER = LoggerFactory.getLogger("Armorspeed");
 	/** Amount of speed to take off per armor point */
 	public static float DEBUFF_AMOUNT = 0.01f;
 	/** Amount of speed to take off when shield is held */
@@ -26,6 +29,7 @@ public class Armorspeed implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ItemTags.init();
+		Config.init();
 
 		ServerTickEvents.END_SERVER_TICK.register((server) -> applySlowness(server, ItemTags.WEIGHTLESS));
 	}
